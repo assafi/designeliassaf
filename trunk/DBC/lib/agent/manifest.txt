@@ -1,0 +1,4 @@
+Premain-Class: il.ac.technion.c236700.InvariantInstrumentor
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+Class-Path: asm3.jar
