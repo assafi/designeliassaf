@@ -8,16 +8,19 @@ public class A implements Checkable{
 		System.out.println("ctor");
 	}
 	
+	@Deprecated
 	public void foo(){
-		System.out.println("A.foo()");
+		System.out.println("Entering A.foo()");
+		System.out.println("Exiting A.foo()");
 	}
 	
 	public void bar(){
-		System.out.println("A.bar()");
+		System.out.println("Entering A.bar()");
 		foo();
+		System.out.println("Exiting A.bar()");
 	}
 	public static void main(String[] args) {
-		new A().foo();
+		new A().bar();
 	}
 
 	@Override
