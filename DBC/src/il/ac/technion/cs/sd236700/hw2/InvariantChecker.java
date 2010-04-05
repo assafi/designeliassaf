@@ -16,11 +16,6 @@ public class InvariantChecker {
 			return;
 		}
 
-		/*
-		 * Validates that c is on the top of the stack 
-		 */
-		//		validateObject(c);
-
 		//Does the class of the method that is on the two before the top of the stack [stack: check(),f(),g(),...]
 		try {
 			String topMethodClassName = c.getClass().getName();
@@ -29,7 +24,7 @@ public class InvariantChecker {
 
 			if (topMethodClassName.equals(callerMethodClassName)
 					&& (!methodIsStatic(callerMethodClassName, callerMethodName))) {
-				System.out.println("Second condition is not valid");
+//				System.out.println("Second condition is not valid");
 				return;
 			}
 
@@ -75,7 +70,7 @@ public class InvariantChecker {
 		Throwable ex = new Throwable();
 		StackTraceElement[] stackElements = ex.getStackTrace();
 
-		if (stackElements.length < 4) {
+		if (stackElements.length < 4) { // stack: [ getCallerMethodClass(), check(), callee(), caller(),... ]
 			throw new NoCallerClassException();
 		}
 

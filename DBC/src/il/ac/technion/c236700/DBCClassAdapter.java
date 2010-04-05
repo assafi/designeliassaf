@@ -8,8 +8,11 @@ import org.objectweb.asm.Opcodes;
 
 public class DBCClassAdapter extends ClassAdapter {
 
-	public DBCClassAdapter(ClassVisitor cv) {
+	private String subjectClass = null;
+	
+	public DBCClassAdapter(ClassVisitor cv, String subjectClass) {
 		super(cv);
+		this.subjectClass = subjectClass;
 	}
 
 	@Override
@@ -18,9 +21,10 @@ public class DBCClassAdapter extends ClassAdapter {
 			String desc,
 			String signiture, 
 			String[] exceptions) {
+		
 		MethodVisitor mv = cv.visitMethod(access, name, desc, signiture, exceptions);
 		if (mv != null && isMethodSuitible(access, name, desc))
-			mv = new DBCMethodVisitor(mv);
+			mv = new DBCMethodVisitor(mv, subjectClass);
 		return mv;
 	}
 
@@ -31,6 +35,9 @@ public class DBCClassAdapter extends ClassAdapter {
 			return false;
 		if ( (Opcodes.ACC_PUBLIC & access) == 0 )
 			return false;
+		if ( (Opcodes.ACC_DEPRECATED & access) != 0)		//Question #3
+			return false;
+		
 		return true;
 	}
 

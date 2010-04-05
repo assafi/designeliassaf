@@ -13,6 +13,7 @@ public class InvariantInstrumentor implements ClassFileTransformer{
 	
 	public InvariantInstrumentor(String subjectClass) {
 		this.subjectClass = subjectClass; 
+		System.out.println("subjectClass - " + subjectClass);
 	}
 	public static void premain(String agentArgs, Instrumentation inst){
 		inst.addTransformer(new InvariantInstrumentor(agentArgs));
@@ -31,7 +32,8 @@ public class InvariantInstrumentor implements ClassFileTransformer{
 	private byte[] instrument(byte[] byteCode) {
 		ClassReader cr = new ClassReader(byteCode);
 		ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS);
-		DBCClassAdapter dbcAdaptor = new DBCClassAdapter(cw);  
+		
+		DBCClassAdapter dbcAdaptor = new DBCClassAdapter(cw,subjectClass);  
 		
 		cr.accept(dbcAdaptor, ClassReader.SKIP_DEBUG);
 		return cw.toByteArray();
