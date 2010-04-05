@@ -14,6 +14,7 @@ public class A implements Checkable{
 		System.out.println("Exiting A.foo()");
 	}
 	
+//	@Deprecated
 	public void bar(){
 		System.out.println("Entering A.bar()");
 		foo();
