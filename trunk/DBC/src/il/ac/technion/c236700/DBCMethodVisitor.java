@@ -6,19 +6,21 @@ import org.objectweb.asm.Opcodes;
 
 public class DBCMethodVisitor extends MethodAdapter {
 
-	public DBCMethodVisitor(MethodVisitor mv) {
+	private String subjectClass = null;
+	public DBCMethodVisitor(MethodVisitor mv, String subjectClass) {
 		super(mv);
+		this.subjectClass = subjectClass.replaceAll("\\.", "/");
 	}
 
 	@Override
 	public void visitInsn(int opcode) {
+		System.out.println("visitInst invoked");
 		if (isTerminatingOpCode(opcode)){
 			mv.visitVarInsn(Opcodes.ALOAD, 0); //pushing this pointer to the stack
-			mv.visitMethodInsn(
-					Opcodes.INVOKESTATIC,	//static method 
-					"il/ac/technion/cs/sd236700/hw2/InvariantChecker", //package name 
-					"check", //method name
-					"(Ljava/lang/Object;)V"); 	 //method signature
+			mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,	//Question #2
+					subjectClass,
+					"invariant", 	
+					"()V");
 		}
 		mv.visitInsn(opcode);
 	}

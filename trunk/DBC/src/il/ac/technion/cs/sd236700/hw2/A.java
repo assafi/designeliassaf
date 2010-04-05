@@ -17,7 +17,7 @@ public class A implements Checkable{
 		foo();
 	}
 	public static void main(String[] args) {
-		new B().h(new A());
+		new A().foo();
 	}
 
 	@Override
