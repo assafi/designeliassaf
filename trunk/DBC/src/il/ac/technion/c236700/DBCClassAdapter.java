@@ -8,11 +8,14 @@ import org.objectweb.asm.Opcodes;
 
 public class DBCClassAdapter extends ClassAdapter {
 
+	private static final String INVARIANT = "invariant";
 	private String subjectClass = null;
+	private boolean classHasInvarient = false;
 	
-	public DBCClassAdapter(ClassVisitor cv, String subjectClass) {
+	public DBCClassAdapter(ClassVisitor cv, String subjectClass, InvariantAdaptor invAdaptor) {
 		super(cv);
 		this.subjectClass = subjectClass;
+		this.classHasInvarient = invAdaptor.invariantExists();
 	}
 
 	@Override
@@ -29,7 +32,10 @@ public class DBCClassAdapter extends ClassAdapter {
 	}
 
 	private boolean isMethodSuitible(int access, String name, String desc) {
-		if ("invariant".equals(name))
+		if (!classHasInvarient) { 							//Question #2
+			return false;
+		}
+		if (INVARIANT.equals(name))
 			return false;
 		if ( (Opcodes.ACC_STATIC & access) != 0 )
 			return false;

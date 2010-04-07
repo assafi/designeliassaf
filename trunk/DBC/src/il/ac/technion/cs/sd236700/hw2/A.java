@@ -5,11 +5,10 @@ import il.ac.technion.cs.ssdl.utils.Checkable;
 public class A implements Checkable{
 	
 	public A() {
-		System.out.println("Entering A.ctor()");
-		System.out.println("Exiting A.ctor()");
+		System.out.println("ctor");
 	}
 	
-//	@Deprecated
+	@Deprecated
 	public void foo(){
 		System.out.println("Entering A.foo()");
 		System.out.println("Exiting A.foo()");
@@ -22,7 +21,7 @@ public class A implements Checkable{
 		System.out.println("Exiting A.bar()");
 	}
 	public static void main(String[] args) {
-		new A().bar();
+		new B().h();
 	}
 
 	@Override
