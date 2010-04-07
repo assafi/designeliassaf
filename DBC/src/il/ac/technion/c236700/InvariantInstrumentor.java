@@ -13,7 +13,6 @@ public class InvariantInstrumentor implements ClassFileTransformer{
 	
 	public InvariantInstrumentor(String subjectClass) {
 		this.subjectClass = subjectClass; 
-		System.out.println("subjectClass - " + subjectClass);
 	}
 	public static void premain(String agentArgs, Instrumentation inst){
 		inst.addTransformer(new InvariantInstrumentor(agentArgs));
