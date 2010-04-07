@@ -12,7 +12,7 @@ public class InvariantChecker {
 
 		//Does c implements Checkable?
 		if (!(c instanceof Checkable)) {
-			System.out.println("Invalid object");
+//			System.out.println("Invalid object");
 			return;
 		}
 

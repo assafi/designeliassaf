@@ -14,7 +14,6 @@ public class DBCMethodVisitor extends MethodAdapter {
 
 	@Override
 	public void visitInsn(int opcode) {
-		System.out.println("visitInst invoked");
 		if (isTerminatingOpCode(opcode)){
 			mv.visitVarInsn(Opcodes.ALOAD, 0); //pushing this pointer to the stack
 			mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,	//Question #2
