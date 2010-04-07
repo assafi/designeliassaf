@@ -31,9 +31,20 @@ public class InvariantInstrumentor implements ClassFileTransformer{
 	private byte[] instrument(byte[] byteCode) {
 		ClassReader cr = new ClassReader(byteCode);
 		ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS);
+
+		ClassReader cr2 = new ClassReader(byteCode);
+		ClassWriter cw2 = new ClassWriter(cr2, ClassWriter.COMPUTE_MAXS);
 		
-		DBCClassAdapter dbcAdaptor = new DBCClassAdapter(cw,subjectClass);  
-		
+		/*
+		 * Finding out if invariant exists - Question #2
+		 */
+		InvariantAdaptor invAdaptor = new InvariantAdaptor(cw2);
+		cr2.accept(invAdaptor, ClassReader.SKIP_DEBUG);
+
+		/*
+		 * Transforming the code as usual
+		 */
+		DBCClassAdapter dbcAdaptor = new DBCClassAdapter(cw,subjectClass,invAdaptor);  
 		cr.accept(dbcAdaptor, ClassReader.SKIP_DEBUG);
 		return cw.toByteArray();
 	}
