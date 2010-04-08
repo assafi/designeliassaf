@@ -21,7 +21,7 @@ public class A implements Checkable{
 		System.out.println("Exiting A.bar()");
 	}
 	public static void main(String[] args) {
-		new B().h();
+		new C().k();
 	}
 
 	@Override

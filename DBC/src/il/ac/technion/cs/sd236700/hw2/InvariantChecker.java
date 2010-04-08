@@ -10,9 +10,7 @@ public class InvariantChecker {
 
 	public static void check(Object c){
 
-		//Does c implements Checkable?
 		if (!(c instanceof Checkable)) {
-//			System.out.println("Invalid object");
 			return;
 		}
 
@@ -24,7 +22,6 @@ public class InvariantChecker {
 
 			if (topMethodClassName.equals(callerMethodClassName)
 					&& (!methodIsStatic(callerMethodClassName, callerMethodName))) {
-//				System.out.println("Second condition is not valid");
 				return;
 			}
 
