@@ -28,6 +28,7 @@ public class DBCClassAdapter extends ClassAdapter {
 		MethodVisitor mv = cv.visitMethod(access, name, desc, signiture, exceptions);
 		if (mv != null && isMethodSuitible(access, name, desc))
 			mv = new DBCMethodVisitor(mv, subjectClass);
+		
 		return mv;
 	}
 
