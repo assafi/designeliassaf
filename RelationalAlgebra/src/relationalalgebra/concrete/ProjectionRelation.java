@@ -20,6 +20,7 @@ import relationalalgebra.IRelation;
  */
 public class ProjectionRelation implements IRelation {
 
+	private final String name;
 	private final IRelation initialRelation;
 	private IRelation evaluatedRelation;
 	
@@ -30,13 +31,14 @@ public class ProjectionRelation implements IRelation {
 	/**
 	 * @param properties
 	 */
-	public ProjectionRelation(IRelation relation, Set<String> labels) {
+	public ProjectionRelation(String name, IRelation relation, Set<String> labels) {
 		
+		this.name = name;
 		this.initialRelation = relation;
 		if (checkLabels(relation.getProperties(), labels)) {
 			throw new IllegalArgumentException("Projection labels are not valid for these relation");
 		}
-		this.evaluatedRelation = new BasicRelation(getProjectedProperties(labels));
+		this.evaluatedRelation = new BasicRelation(name, getProjectedProperties(labels));
 	}
 
 	@Override
@@ -112,5 +114,10 @@ public class ProjectionRelation implements IRelation {
 	@Override
 	public Set<Property> getProperties() {
 		return evaluatedRelation.getProperties();
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }

@@ -22,10 +22,12 @@ public class BasicRelation implements IRelation{
 
 	private List<Map <Property, Object>> table = new ArrayList<Map<Property,Object>>();
 	private final Set<Property> properties;
+	private final String name;
 	
-	public BasicRelation(Set<Property> properties) {
+	public BasicRelation(String name, Set<Property> properties) {
 		
 		this.properties = properties;
+		this.name = name;
 	}
 
 	@Override
@@ -64,5 +66,10 @@ public class BasicRelation implements IRelation{
 	@Override
 	public Set<Property> getProperties() {
 		return properties;
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }
