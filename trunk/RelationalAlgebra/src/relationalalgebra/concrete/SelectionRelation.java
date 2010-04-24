@@ -20,6 +20,7 @@ import relationalalgebra.IRelation;
  */
 public class SelectionRelation implements IRelation{
 	
+	private final String name;
 	private final ICondition condition;
 	private final IRelation initialRelation;
 	private IRelation evaluatedRelation;
@@ -28,10 +29,11 @@ public class SelectionRelation implements IRelation{
 	
 	private Queue<Map<Property, Object>> delayedTasks = new ArrayDeque<Map<Property,Object>>();
 
-	public SelectionRelation(IRelation relation, ICondition condition){
+	public SelectionRelation(String name, IRelation relation, ICondition condition){
+		this.name = name;
 		this.initialRelation = relation;
 		this.condition = condition;
-		evaluatedRelation = new BasicRelation(initialRelation.getProperties());
+		evaluatedRelation = new BasicRelation(name, initialRelation.getProperties());
 	}
 	
 	@Override
@@ -74,6 +76,11 @@ public class SelectionRelation implements IRelation{
 	public Iterator<Map<Property, Object>> iterator() {
 		evaluate(); //TODO Document this !
 		return evaluatedRelation.iterator();
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 
 }

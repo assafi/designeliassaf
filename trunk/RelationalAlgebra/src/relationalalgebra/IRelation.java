@@ -16,6 +16,8 @@ import conditions.Property;
  */
 public interface IRelation {
 
+	public String getName();
+	
 	public boolean add(Map<Property, Object> entry);
 	
 	public IRelation evaluate();
