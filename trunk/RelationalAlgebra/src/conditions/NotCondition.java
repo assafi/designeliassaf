@@ -5,13 +5,12 @@
 package conditions;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Assaf Israel & Eli Nazarov
  *
  */
-public class NotCondition implements ICondition{
+public class NotCondition implements ICondition {
 
 	private final ICondition arg;
 	
