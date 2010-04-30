@@ -28,6 +28,10 @@ public class BasicRelation implements IRelation{
 	private List<Map <Property, Object>> table = new ArrayList<Map<Property,Object>>();
 	private final Set<Property> properties;
 	private final String name;
+	private static JFrame frame = new JFrame();
+	private static Object lock = new Object();
+
+
 	
 	public BasicRelation(String name, Set<Property> properties) {
 		
@@ -55,7 +59,7 @@ public class BasicRelation implements IRelation{
 
 	@Override
 	public void display() {
-		JFrame frame = new JFrame();
+		//JFrame frame = new JFrame();
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	    Object rowData[][] = new Object[table.size()][properties.size()];
@@ -84,12 +88,20 @@ public class BasicRelation implements IRelation{
 	    frame.setSize(300, 150);
 	    frame.setVisible(true);
 	    
-	    try {
-			Thread.sleep(7000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    Thread t = new Thread() {
+	    	public void run() {
+	    		synchronized(lock) {
+	    			while (frame.isVisible()){
+	    				try {
+	    					lock.wait();
+	    				} catch (InterruptedException e) {
+	    					e.printStackTrace();
+	    				}
+	    			}
+	    		}
+	    	}
+	    };
+	    t.start();
 	}
 
 	@Override
