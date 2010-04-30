@@ -5,6 +5,7 @@
 package relationalalgebra.concrete;
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class ProjectionRelation implements IRelation {
 		
 		this.name = name;
 		this.initialRelation = relation;
-		if (checkLabels(relation.getProperties(), labels)) {
+		if (!checkLabels(relation.getProperties(), labels)) {
 			throw new IllegalArgumentException("Projection labels are not valid for these relation");
 		}
 		this.evaluatedRelation = new BasicRelation(name, getProjectedProperties(labels));
@@ -61,12 +62,13 @@ public class ProjectionRelation implements IRelation {
 		Iterator<Map<Property, Object>> iter = this.initialRelation.iterator();
 		while (iter.hasNext()) {
 			Map<Property, Object> entry = BasicRelation.cloneEntry(iter.next());
+			Map<Property, Object> newEntry = BasicRelation.cloneEntry(entry);
 			for (Property property : entry.keySet()) {
 				if (!evaluatedRelation.getProperties().contains(property)) {
-					entry.remove(property);
+					newEntry.remove(property);
 				}
 			}
-			evaluatedRelation.add(entry);
+			evaluatedRelation.add(newEntry);
 		}
 		
 		while (!delayedTasks.isEmpty()) {
@@ -98,7 +100,7 @@ public class ProjectionRelation implements IRelation {
 	private boolean checkLabels(Set<Property> properties, Set<String> labels) {
 		
 		Set<String> initialLabels = new HashSet<String>();
-		for (Property property : initialRelation.getProperties()) {
+		for (Property property : properties) {
 			initialLabels.add(property.getName());
 		}
 		
