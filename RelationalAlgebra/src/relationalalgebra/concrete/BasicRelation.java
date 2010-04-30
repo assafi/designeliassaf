@@ -73,6 +73,7 @@ public class BasicRelation implements IRelation{
 			for (Object object : entry.values()) {
 				rowData[i][j++] = object;
 			}
+			j = 0;
 			i++;
 		}
 	    
@@ -82,6 +83,13 @@ public class BasicRelation implements IRelation{
 	    frame.add(scrollPane, BorderLayout.CENTER);
 	    frame.setSize(300, 150);
 	    frame.setVisible(true);
+	    
+	    try {
+			Thread.sleep(7000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
