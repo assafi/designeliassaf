@@ -60,13 +60,20 @@ public class CartesianRelation implements IRelation {
 					equalNameProperties.add(propertyRel1);
 					equalNameProperties.add(propertyRel2);		
 				}
-				else{
-					cartesianProperties.add(propertyRel1);
-					// Avoid duplication
-					if(!cartesianProperties.contains(propertyRel2)){
-						cartesianProperties.add(propertyRel2);
-					}
-				}
+
+			}
+		}
+		// added properties that are not equal
+		// Avoid duplication
+		for (Property propertyRel1 : properties1) {
+			
+			if(!equalNameProperties.contains(propertyRel1)){
+				cartesianProperties.add(propertyRel1);
+			}
+		}
+		for (Property propertyRel2 : properties2) {
+			if(!equalNameProperties.contains(propertyRel2)){
+				cartesianProperties.add(propertyRel2);
 			}
 		}
 		
@@ -116,7 +123,7 @@ public class CartesianRelation implements IRelation {
 			 */
 			Iterator<Map<Property, Object>> iterRel2 = evaluatedRel2.iterator();
 			while(iterRel2.hasNext()){
-				Map<Property, Object> entryRel2 = iterRel1.next();
+				Map<Property, Object> entryRel2 = iterRel2.next();
 				for (Property property : entryRel2.keySet()) {
 					if(equalNameProperties.contains(property)){
 						cartesianEntry.put(new Property(rel2.getName() + "." + property.getName(), property.getClass()), 

@@ -24,6 +24,7 @@ import conditions.Property;
 
 import relationalalgebra.IRelation;
 import relationalalgebra.concrete.BasicRelation;
+import relationalalgebra.concrete.CartesianRelation;
 import relationalalgebra.concrete.ProjectionRelation;
 
 /**
@@ -32,7 +33,8 @@ import relationalalgebra.concrete.ProjectionRelation;
  */
 public class BasicTest {
 
-	private static IRelation bRel = null;
+	private static IRelation bRel1 = null;
+	private static IRelation bRel2 = null;
 	private static Property propName = new Property("name", String.class);
 	private static Property propHieght = new Property("height", Integer.class);
 	/**
@@ -43,23 +45,26 @@ public class BasicTest {
 		Set<Property> properties = new HashSet<Property>();
 		properties.add(propName);
 		properties.add(propHieght);
-		bRel = new BasicRelation("Rel1", properties);
+		bRel1 = new BasicRelation("Rel1", properties);
+		bRel2 = new BasicRelation("Rel2", properties);
 		
 		Map<Property, Object> entry1 = new HashMap<Property, Object>();
 		entry1.put(propName, "Roni");
 		entry1.put(propHieght, 178);
-		bRel.add(entry1);
+		bRel1.add(entry1);
+		bRel2.add(entry1);
 		
 		Map<Property, Object> entry2 = new HashMap<Property, Object>();
 		entry2.put(propName, "Shaul");
 		entry2.put(propHieght, 185);
-		bRel.add(entry2);
+		bRel1.add(entry2);
+		bRel2.add(entry2);
 		
 		Map<Property, Object> entry3 = new HashMap<Property, Object>();
 		entry3.put(propName, "Yoni");
 		entry3.put(propHieght, 167);
-		bRel.add(entry3);
-		
+		bRel1.add(entry3);
+		bRel2.add(entry3);
 		
 	}
 
@@ -87,7 +92,7 @@ public class BasicTest {
 
 	@Test
 	public void testBasicRelation() throws IOException {
-		bRel.display();
+		bRel1.display();
 		
 		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
@@ -100,11 +105,23 @@ public class BasicTest {
 	public void testProjectionRelation() throws IOException {
 		Set<String> labels = new HashSet<String>();
 		labels.add("name");
-		IRelation projRel = new ProjectionRelation("ProhRel", bRel, labels);
+		IRelation projRel = new ProjectionRelation("ProhRel", bRel1, labels);
 		
 		Map<Property, Object> entry1 = new HashMap<Property, Object>();
 		entry1.put(propName, "NEW");
 		projRel.add(entry1);
+		
+		projRel.display();
+		
+		System.out.println("Press Any Key to display next..!");
+		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+		
+		stdin.read();
+	}
+	
+	@Test
+	public void testCartesianRelation() throws IOException {
+		IRelation projRel = new CartesianRelation("CartRel", bRel1, bRel2);
 		
 		projRel.display();
 		
