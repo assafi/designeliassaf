@@ -4,12 +4,17 @@
  */
 package relationalalgebra.concrete;
 
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import relationalalgebra.IRelation;
 import conditions.Property;
@@ -50,7 +55,33 @@ public class BasicRelation implements IRelation{
 
 	@Override
 	public void display() {
-		throw new UnsupportedOperationException();		//TODO IMPLEMENT THIS !!!
+		JFrame frame = new JFrame();
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	    Object rowData[][] = new Object[table.size()][properties.size()];
+	    Object columnNames[] = new Object[properties.size()];
+	    
+	    int i = 0;
+	    for (Property prop : properties) {
+			columnNames[i++] = prop.getName();
+		}
+	    
+	    i = 0;
+	    int j = 0;
+	    
+	    for (Map <Property, Object> entry : table) {
+			for (Object object : entry.values()) {
+				rowData[i][j++] = object;
+			}
+			i++;
+		}
+	    
+	    JTable table = new JTable(rowData, columnNames);
+
+	    JScrollPane scrollPane = new JScrollPane(table);
+	    frame.add(scrollPane, BorderLayout.CENTER);
+	    frame.setSize(300, 150);
+	    frame.setVisible(true);
 	}
 
 	@Override
