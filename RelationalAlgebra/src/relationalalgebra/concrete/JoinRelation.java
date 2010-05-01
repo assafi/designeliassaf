@@ -37,6 +37,11 @@ public class JoinRelation implements IRelation {
 	private Set<Property> propetryNameChanged = new HashSet<Property>();
 	
 	public JoinRelation(String name,  IRelation rel1, IRelation rel2){
+		
+		if (null == name || null == rel1 || null == rel2){
+			throw new IllegalArgumentException("Parameters can't be null");
+		}
+		
 		this.name = name;
 		this.rel1 = rel1;
 		this.rel2 = rel2;

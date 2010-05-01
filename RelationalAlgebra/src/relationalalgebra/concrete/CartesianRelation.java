@@ -36,6 +36,9 @@ public class CartesianRelation implements IRelation {
 	private Queue<Map<Property, Object>> delayedTasks = new ArrayDeque<Map<Property,Object>>();
 	
 	public CartesianRelation(String name, IRelation rel1, IRelation rel2){
+		if (null == name || null == rel1 || null == rel2){
+			throw new IllegalArgumentException("Parameters can't be null");
+		}
 		this.name = name;
 		this.rel1 = rel1;
 		this.rel2 = rel2;
