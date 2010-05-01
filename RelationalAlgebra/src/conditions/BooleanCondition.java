@@ -1,6 +1,6 @@
 /**
  * Date: Apr 23, 2010
- * RelationalAlgebra - BasicBooleanCondition.java
+ * RelationalAlgebra - BooleanCondition.java
  */
 package conditions;
 
@@ -10,11 +10,11 @@ import java.util.Map;
  * @author Assaf Israel & Eli Nazarov
  *
  */
-public class BasicBooleanCondition implements ICondition{
+public class BooleanCondition implements ICondition{
 
 	private final Property property;
 	
-	public BasicBooleanCondition(Property property) {
+	public BooleanCondition(Property property) {
 		
 		if (!(property.getType().equals(Boolean.class))) {
 			throw new IllegalArgumentException("Expected Boolean type");
