@@ -92,9 +92,11 @@ public class BasicTest {
 
 	@Test
 	public void testBasicRelation() throws IOException {
+		System.out.println("testBasicRelation");
+		
 		bRel1.display();
 		
-		System.out.println("Press Any Key to display next..!");
+//		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 	
 		stdin.read();
@@ -103,6 +105,7 @@ public class BasicTest {
 	
 	@Test
 	public void testProjectionRelation() throws IOException {
+		System.out.println("testProjectionRelation");
 		Set<String> labels = new HashSet<String>();
 		labels.add("name");
 		IRelation projRel = new ProjectionRelation("ProhRel", bRel1, labels);
@@ -113,19 +116,33 @@ public class BasicTest {
 		
 		projRel.display();
 		
-		System.out.println("Press Any Key to display next..!");
+//		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		stdin.read();
 	}
 	
 	@Test
-	public void testCartesianRelation() throws IOException {
-		IRelation projRel = new CartesianRelation("CartRel", bRel1, bRel1);
+	public void testCartesianRelation1() throws IOException {
+		System.out.println("testCartesianRelation1");
+		IRelation cartRel = new CartesianRelation("CartRel", bRel1, bRel2);
 		
-		projRel.display();
+		cartRel.display();
 		
-		System.out.println("Press Any Key to display next..!");
+//		System.out.println("Press Any Key to display next..!");
+		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+		
+		stdin.read();
+	}
+	
+	@Test
+	public void testCartesianRelation2() throws IOException {
+		System.out.println("testCartesianRelation2");
+		IRelation cartRel = new CartesianRelation("CartRelSame", bRel1, bRel1);
+		
+		cartRel.display();
+		
+//		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		stdin.read();
