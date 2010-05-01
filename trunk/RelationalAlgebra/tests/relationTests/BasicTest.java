@@ -40,9 +40,11 @@ public class BasicTest {
 	private static IRelation bRel1 = null;
 	private static IRelation bRel2 = null;
 	private static IRelation bRel3 = null;
+	private static IRelation bRel4 = null;
 	private static Property propName = new Property("name", String.class);
 	private static Property propHieght = new Property("height", Integer.class);
 	private static Property propFatherName = new Property("fatherName", String.class);
+	private static Property propHieght2 = new Property("height", Boolean.class);
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -89,6 +91,24 @@ public class BasicTest {
 		entry5.put(propName, "Milush");
 		entry5.put(propFatherName, "Gregor");
 		bRel3.add(entry5);
+		
+		Set<Property> properties3 = new HashSet<Property>();
+		properties3.add(propName);
+		properties3.add(propFatherName);
+		properties3.add(propHieght2);
+		bRel4 = new BasicRelation("Rel4", properties3);
+		
+		Map<Property, Object> entry6 = new HashMap<Property, Object>();
+		entry6.put(propName, "Roni");
+		entry6.put(propFatherName, "David");
+		entry6.put(propHieght2, true);
+		bRel4.add(entry6);
+		
+		Map<Property, Object> entry7 = new HashMap<Property, Object>();
+		entry7.put(propName, "Milush");
+		entry7.put(propFatherName, "Gregor");
+		entry7.put(propHieght2, true);
+		bRel4.add(entry7);
 		
 	}
 
@@ -191,6 +211,20 @@ public class BasicTest {
 		System.out.println("testJoinRelation");
 
 		IRelation selectRel = new JoinRelation("JoinRel", bRel1, bRel3);
+		
+		selectRel.display();
+		
+//		System.out.println("Press Any Key to display next..!");
+		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+		
+		stdin.read();
+	}
+	
+	@Test
+	public void testJoinRelation2() throws IOException {
+		System.out.println("testJoinRelation");
+
+		IRelation selectRel = new JoinRelation("JoinRel", bRel1, bRel4);
 		
 		selectRel.display();
 		

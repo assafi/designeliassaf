@@ -32,6 +32,7 @@ public class JoinRelation implements IRelation {
 	
 
 	private Set<Property> propetryIntersect = new HashSet<Property>();
+	private Set<Property> propetryNameChanged = new HashSet<Property>();
 	
 	public JoinRelation(String name,  IRelation rel1, IRelation rel2){
 		this.name = name;
@@ -43,16 +44,46 @@ public class JoinRelation implements IRelation {
 	private Set<Property> unionProperties(Set<Property> properties1,
 			Set<Property> properties2) {
 		Set<Property> propertyUnion = new HashSet<Property>();
-		for (Property property : properties1) {
-			propertyUnion.add(property);
-			if (properties2.contains(property)){
-				propetryIntersect.add(property);
+		for (Property property1 : properties1) {
+			for (Property property2 : properties2) {
+				/*
+				 * if they are equal add only one
+				 */
+				if(property1.equals(property2)){
+					propertyUnion.add(property1);
+					propetryIntersect.add(property1);
+					if (!propetryIntersect.contains(property2))
+						propetryIntersect.add(property2);
+				}
+				else{
+					// if names are the same then change the names
+					if (property1.getName().equals(property2.getName())){
+						Property joinProp1 = new Property(rel1.getName() + "." + property1.getName(), property1.getType());
+						Property joinProp2 = new Property(rel2.getName() + "." + property2.getName(), property2.getType());
+						if (!propertyUnion.contains(joinProp1)){
+							propertyUnion.add(joinProp1);
+							propetryNameChanged.add(property1);
+						}
+						if (!propertyUnion.contains(joinProp2)){
+							propertyUnion.add(joinProp2);
+							propetryNameChanged.add(property2);
+						}
+					}
+				}
 			}
 		}
 		
-		for (Property property : properties2) {
-			if (!propertyUnion.contains(property)){
-				propertyUnion.add(property);
+		for (Property property1 : properties1) {
+			if (!propertyUnion.contains(property1)
+				&& !propetryNameChanged.contains(property1)){
+				propertyUnion.add(property1);
+			}
+		}
+		
+		for (Property property2 : properties2) {
+			if (!propertyUnion.contains(property2)
+				&& !propetryNameChanged.contains(property2)){
+				propertyUnion.add(property2);
 			}
 		}
 		
@@ -113,12 +144,21 @@ public class JoinRelation implements IRelation {
 			Map<Property, Object> entry2) {
 		Map<Property, Object> newEntry = new HashMap<Property, Object>();
 		for (Property prop : entry1.keySet()) {
-			newEntry.put(prop, entry1.get(prop));
+			if (propetryNameChanged.contains(prop)){
+				newEntry.put(new Property(rel1.getName() + "." + prop.getName(), prop.getType()), entry1.get(prop));
+			}else{
+				newEntry.put(prop, entry1.get(prop));
+			}
 		}
 		
 		for (Property prop : entry2.keySet()) {
 			if (!newEntry.containsKey(prop))
-				newEntry.put(prop, entry2.get(prop));
+				if (propetryNameChanged.contains(prop)){
+					newEntry.put(new Property(rel2.getName() + "." + prop.getName(), prop.getType()), entry2.get(prop));
+				}else{
+					newEntry.put(prop, entry2.get(prop));
+				}
+				
 		}
 		
 		return newEntry;
