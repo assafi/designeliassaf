@@ -220,20 +220,6 @@ public class BasicTest {
 		stdin.read();
 	}
 	
-	@Test
-	public void testComplex() throws IOException {
-		System.out.println("testComplex");
-		
-		IRelation join1 = new JoinRelation("J1", bRel1, bRel3);
-		IRelation cart2 = new CartesianRelation("C2",join1, bRel2);
-		
-		cart2.display();
-		
-//		System.out.println("Press Any Key to display next..!");
-		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-		
-		stdin.read();
-	}
 	
 	@Test
 	public void testJoinRelation2() throws IOException {
@@ -242,6 +228,21 @@ public class BasicTest {
 		IRelation selectRel = new JoinRelation("JoinRel", bRel1, bRel4);
 		
 		selectRel.display();
+		
+//		System.out.println("Press Any Key to display next..!");
+		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+		
+		stdin.read();
+	}
+	
+	@Test
+	public void testComplex() throws IOException {
+		System.out.println("testComplex");
+		
+		IRelation join1 = new JoinRelation("J1", bRel1, bRel3);
+		IRelation cart2 = new CartesianRelation("C2",join1, bRel2);
+		
+		cart2.display();
 		
 //		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
