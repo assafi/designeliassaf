@@ -45,6 +45,19 @@ public class CartesianRelation implements IRelation {
 		
 		Set<Property> properties1 = rel1.getProperties();
 		Set<Property> properties2 = rel2.getProperties();
+		
+		System.out.println(rel1.getName());
+		for (Property property : properties1) {
+			System.out.print(property.getName() + " ");
+		}
+		System.out.println(" ");
+		
+		System.out.println(rel2.getName());
+		for (Property property : properties2) {
+			System.out.print(property.getName() + " ");
+		}
+		System.out.println(" ");
+		
 		Set<Property> cartesianProperties = new HashSet<Property>();
 		
 		for (Property propertyRel1 : properties1) {
@@ -79,6 +92,11 @@ public class CartesianRelation implements IRelation {
 			}
 		}
 		
+		System.out.println("cartesianRel");
+		for (Property property : cartesianProperties) {
+			System.out.print(property.getName() + " ");
+		}
+		System.out.println(" ");
 		return cartesianProperties;
 		
 	}
@@ -132,6 +150,10 @@ public class CartesianRelation implements IRelation {
 						cartesianEntry.put(new Property(cartPropName, property.getType()), 
 										   entryRel2.get(property));
 					}
+					else{
+						cartesianEntry.put(property, 
+								   entryRel2.get(property));
+					}
 				}
 				evaluatedRelation.add(cartesianEntry);
 				cartesianEntry = extractEntry(entryRel1);
@@ -156,6 +178,9 @@ public class CartesianRelation implements IRelation {
 				String cartPropName = createCartesianPropName(rel1, property.getName(), rel2, "1");
 				newEntry.put(new Property(cartPropName, property.getType()), 
 								   entryRel1.get(property));
+			}
+			else{
+				newEntry.put(property, entryRel1.get(property));
 			}
 		}
 		return newEntry;
