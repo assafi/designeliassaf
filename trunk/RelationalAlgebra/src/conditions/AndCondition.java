@@ -7,6 +7,7 @@ package conditions;
 import java.util.Map;
 
 /**
+ * Represents a Boolean And operator.
  * @author Assaf Israel & Eli Nazarov
  *
  */

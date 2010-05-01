@@ -5,6 +5,7 @@
 package conditions;
 
 /**
+ * Represents property which is the tuple (name,type).
  * @author Assaf Israel & Eli Nazarov
  *
  */

@@ -7,6 +7,8 @@ package conditions;
 import java.util.Map;
 
 /**
+ * Represents a Numeric comparison operator.
+ * check whether two integers are different. 
  * @author Assaf Israel & Eli Nazarov
  *
  */
