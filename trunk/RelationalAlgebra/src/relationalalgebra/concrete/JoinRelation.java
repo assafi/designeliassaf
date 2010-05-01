@@ -36,6 +36,12 @@ public class JoinRelation implements IRelation {
 	private Set<Property> propetryIntersect = new HashSet<Property>();
 	private Set<Property> propetryNameChanged = new HashSet<Property>();
 	
+	/**
+	 * Creates join operation
+	 * @param name
+	 * @param rel1
+	 * @param rel2
+	 */
 	public JoinRelation(String name,  IRelation rel1, IRelation rel2){
 		
 		if (null == name || null == rel1 || null == rel2){
