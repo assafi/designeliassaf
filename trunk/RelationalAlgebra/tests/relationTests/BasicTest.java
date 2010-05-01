@@ -42,7 +42,7 @@ public class BasicTest {
 	private static IRelation bRel3 = null;
 	private static IRelation bRel4 = null;
 	private static Property propName = new Property("name", String.class);
-	private static Property propHieght = new Property("height", Integer.class);
+	private static Property propHeight = new Property("height", Integer.class);
 	private static Property propFatherName = new Property("fatherName", String.class);
 	private static Property propHieght2 = new Property("height", Boolean.class);
 	/**
@@ -52,25 +52,25 @@ public class BasicTest {
 	public static void setUpBeforeClass() throws Exception {
 		Set<Property> properties = new HashSet<Property>();
 		properties.add(propName);
-		properties.add(propHieght);
+		properties.add(propHeight);
 		bRel1 = new BasicRelation("Rel1", properties);
 		bRel2 = new BasicRelation("Rel2", properties);
 		
 		Map<Property, Object> entry1 = new HashMap<Property, Object>();
 		entry1.put(propName, "Roni");
-		entry1.put(propHieght, 178);
+		entry1.put(propHeight, 178);
 		bRel1.add(entry1);
 		bRel2.add(entry1);
 		
 		Map<Property, Object> entry2 = new HashMap<Property, Object>();
 		entry2.put(propName, "Shaul");
-		entry2.put(propHieght, 185);
+		entry2.put(propHeight, 185);
 		bRel1.add(entry2);
 		bRel2.add(entry2);
 		
 		Map<Property, Object> entry3 = new HashMap<Property, Object>();
 		entry3.put(propName, "Yoni");
-		entry3.put(propHieght, 167);
+		entry3.put(propHeight, 167);
 		bRel1.add(entry3);
 		bRel2.add(entry3);
 		
@@ -195,7 +195,7 @@ public class BasicTest {
 	@Test
 	public void testSelectionRelation() throws IOException {
 		System.out.println("testSelectionRelation");
-		ICondition cond = new GreaterThenCondition(propHieght, 170);
+		ICondition cond = new GreaterThenCondition(propHeight, 170);
 		IRelation selectRel = new SelectionRelation("SelectRel", bRel1, cond);
 		
 		selectRel.display();
@@ -210,9 +210,24 @@ public class BasicTest {
 	public void testJoinRelation() throws IOException {
 		System.out.println("testJoinRelation");
 
-		IRelation selectRel = new JoinRelation("JoinRel", bRel1, bRel3);
+		IRelation joinRel = new JoinRelation("JoinRel", bRel1, bRel3);
 		
-		selectRel.display();
+		joinRel.display();
+		
+//		System.out.println("Press Any Key to display next..!");
+		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+		
+		stdin.read();
+	}
+	
+	@Test
+	public void testComplex() throws IOException {
+		System.out.println("testComplex");
+		
+		IRelation join1 = new JoinRelation("J1", bRel1, bRel3);
+		IRelation cart2 = new CartesianRelation("C2",join1, bRel2);
+		
+		cart2.display();
 		
 //		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
