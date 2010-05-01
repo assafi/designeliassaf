@@ -35,6 +35,13 @@ public class CartesianRelation implements IRelation {
 	
 	private Queue<Map<Property, Object>> delayedTasks = new ArrayDeque<Map<Property,Object>>();
 	
+	/**
+	 * Cartesian relation.<br>
+	 * If on of the relation is empty the generated relation will be empty as well.
+	 * @param name Relation name
+	 * @param rel1 First relation for the operation
+	 * @param rel2 First relation for the operation
+	 */
 	public CartesianRelation(String name, IRelation rel1, IRelation rel2){
 		if (null == name || null == rel1 || null == rel2){
 			throw new IllegalArgumentException("Parameters can't be null");

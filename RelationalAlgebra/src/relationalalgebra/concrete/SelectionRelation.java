@@ -9,12 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.Set;
-import java.util.SortedSet;
 
+import relationalalgebra.IRelation;
 import conditions.ICondition;
 import conditions.Property;
-import relationalalgebra.IRelation;
 
 /**
  * @author Assaf Israel & Eli Nazarov
