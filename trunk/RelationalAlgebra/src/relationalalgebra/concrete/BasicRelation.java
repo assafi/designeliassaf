@@ -34,6 +34,10 @@ public class BasicRelation implements IRelation{
 	
 	public BasicRelation(String name, List<Property> properties) {
 		
+		if(null == properties || null == name){
+			throw new IllegalArgumentException("Parameters can't be null");
+		}
+		
 		if(!checkProperties(properties)){
 			throw new IllegalArgumentException("Different properties with same name are not allowd");
 		}

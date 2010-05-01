@@ -32,6 +32,11 @@ public class SelectionRelation implements IRelation{
 	private Queue<Map<Property, Object>> delayedTasks = new ArrayDeque<Map<Property,Object>>();
 
 	public SelectionRelation(String name, IRelation relation, ICondition condition){
+		
+		if (null == name || null == relation || null == condition){
+			throw new IllegalArgumentException("Parameters can't be null");
+		}
+		
 		this.name = name;
 		this.initialRelation = relation;
 		this.condition = condition;

@@ -35,6 +35,10 @@ public class ProjectionRelation implements IRelation {
 	 */
 	public ProjectionRelation(String name, IRelation relation, Set<String> labels) {
 		
+		if (null == name || null == relation || null == labels){
+			throw new IllegalArgumentException("Parameters can't be null");
+		}
+		
 		this.name = name;
 		this.initialRelation = relation;
 		if (!checkLabels(relation.getProperties(), labels)) {
