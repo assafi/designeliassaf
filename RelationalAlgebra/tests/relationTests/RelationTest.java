@@ -4,13 +4,13 @@
  */
 package relationTests;
 
-import static org.junit.Assert.*;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,22 +20,21 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import conditions.GreaterThenCondition;
-import conditions.ICondition;
-import conditions.Property;
-
 import relationalalgebra.IRelation;
 import relationalalgebra.concrete.BasicRelation;
 import relationalalgebra.concrete.CartesianRelation;
 import relationalalgebra.concrete.JoinRelation;
 import relationalalgebra.concrete.ProjectionRelation;
 import relationalalgebra.concrete.SelectionRelation;
+import conditions.GreaterThenCondition;
+import conditions.ICondition;
+import conditions.Property;
 
 /**
  * @author Assaf Israel & Eli Nazarov
  *
  */
-public class BasicTest {
+public class RelationTest {
 
 	private static IRelation bRel1 = null;
 	private static IRelation bRel2 = null;
@@ -50,7 +49,7 @@ public class BasicTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Set<Property> properties = new HashSet<Property>();
+		List<Property> properties = new ArrayList<Property>();
 		properties.add(propName);
 		properties.add(propHeight);
 		bRel1 = new BasicRelation("Rel1", properties);
@@ -77,7 +76,7 @@ public class BasicTest {
 		/*
 		 * Join relation setup
 		 */
-		Set<Property> properties2 = new HashSet<Property>();
+		List<Property> properties2 = new ArrayList<Property>();
 		properties2.add(propName);
 		properties2.add(propFatherName);
 		bRel3 = new BasicRelation("Rel3", properties2);
@@ -92,7 +91,7 @@ public class BasicTest {
 		entry5.put(propFatherName, "Gregor");
 		bRel3.add(entry5);
 		
-		Set<Property> properties3 = new HashSet<Property>();
+		List<Property> properties3 = new ArrayList<Property>();
 		properties3.add(propName);
 		properties3.add(propFatherName);
 		properties3.add(propHieght2);
@@ -217,7 +216,7 @@ public class BasicTest {
 	
 	@Test
 	public void testJoinRelation2() throws IOException {
-		System.out.println("testJoinRelation");
+		System.out.println("testJoinRelation2");
 
 		IRelation selectRel = new JoinRelation("JoinRel", bRel1, bRel4);
 		

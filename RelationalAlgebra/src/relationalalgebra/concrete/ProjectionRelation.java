@@ -5,15 +5,16 @@
 package relationalalgebra.concrete;
 
 import java.util.ArrayDeque;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import conditions.Property;
 import relationalalgebra.IRelation;
+import conditions.Property;
 
 /**
  * @author Assaf Israel & Eli Nazarov
@@ -85,9 +86,9 @@ public class ProjectionRelation implements IRelation {
 		return evaluatedRelation.iterator();
 	}
 
-	private Set<Property> getProjectedProperties(	Set<String> labels) {
+	private List<Property> getProjectedProperties(	Set<String> labels) {
 		
-		Set<Property> retSet = new  HashSet<Property>();
+		List<Property> retSet = new  ArrayList<Property>();
 		for (Property property : initialRelation.getProperties()) {
 			if (labels.contains(property.getName())) {
 				retSet.add(property);
@@ -97,7 +98,7 @@ public class ProjectionRelation implements IRelation {
 		return retSet;
 	}
 	
-	private boolean checkLabels(Set<Property> properties, Set<String> labels) {
+	private boolean checkLabels(List<Property> properties, Set<String> labels) {
 		
 		Set<String> initialLabels = new HashSet<String>();
 		for (Property property : properties) {
@@ -114,7 +115,7 @@ public class ProjectionRelation implements IRelation {
 	}
 
 	@Override
-	public Set<Property> getProperties() {
+	public List<Property> getProperties() {
 		return evaluatedRelation.getProperties();
 	}
 

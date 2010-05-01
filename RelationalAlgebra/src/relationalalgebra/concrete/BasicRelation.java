@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -26,14 +25,14 @@ import conditions.Property;
 public class BasicRelation implements IRelation{
 
 	private List<Map <Property, Object>> table = new ArrayList<Map<Property,Object>>();
-	private final Set<Property> properties;
+	private final List<Property> properties;
 	private final String name;
 	private JFrame frame = new JFrame();
 	private static Object lock = new Object();
 
 
 	
-	public BasicRelation(String name, Set<Property> properties) {
+	public BasicRelation(String name, List<Property> properties) {
 		
 		if(!checkProperties(properties)){
 			throw new IllegalArgumentException("Different properties with same name are not allowd");
@@ -43,12 +42,13 @@ public class BasicRelation implements IRelation{
 		this.name = name;
 	}
 
-	private boolean checkProperties(Set<Property> properties) {
+	private boolean checkProperties(List<Property> properties) {
 		Property[] propArr = new Property[properties.size()];
 		propArr = properties.toArray(propArr);
 		for(int i = 0; i < propArr.length-1; i++){
 			for(int j = i+1; j < propArr.length; j++){
-				if(propArr[i].getName().equals(propArr[j].getName())){
+				if(propArr[i].getName().equals(propArr[j].getName())
+					|| propArr[i].equals(propArr[j])){
 					return false;
 				}
 			}
@@ -60,9 +60,18 @@ public class BasicRelation implements IRelation{
 
 	@Override
 	public boolean add(Map<Property, Object> entry) {
+		/*
+		 * Check if the properties in the entry 
+		 * are equal to the properties of therelation	
+		 */
+		for (Property property : entry.keySet()) {
+			if (!properties.contains(property))
+				throw new IllegalArgumentException("Illigal entry. Properties do not match the Relation definition");
+		}
 		
-		if (!properties.equals(entry.keySet())) {
-			throw new IllegalArgumentException("Illigal entry. Properties do not match the Relation definition");
+		for (Property property : properties) {
+			if (!entry.keySet().contains(property))
+				throw new IllegalArgumentException("Illigal entry. Properties do not match the Relation definition");
 		}
 		
 		return table.add(cloneEntry(entry));
@@ -93,9 +102,12 @@ public class BasicRelation implements IRelation{
 	    int j = 0;
 	    
 	    for (Map <Property, Object> entry : table) {
-			for (Object object : entry.values()) {
-				rowData[i][j++] = object;
+	    	for (Property property : properties) {
+				rowData[i][j++] = entry.get(property);
 			}
+//			for (Object object : entry.values()) {
+//				rowData[i][j++] = object;
+//			}
 			j = 0;
 			i++;
 		}
@@ -134,7 +146,7 @@ public class BasicRelation implements IRelation{
 	}
 
 	@Override
-	public Set<Property> getProperties() {
+	public List<Property> getProperties() {
 		return properties;
 	}
 

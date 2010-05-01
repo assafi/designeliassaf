@@ -5,15 +5,17 @@
 package relationalalgebra.concrete;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import conditions.Property;
 import relationalalgebra.IRelation;
+import conditions.Property;
 
 /**
  * @author Assaf Israel & Eli Nazarov
@@ -41,9 +43,9 @@ public class JoinRelation implements IRelation {
 		evaluatedRelation = new BasicRelation(name, unionProperties(rel1.getProperties(), rel2.getProperties()));
 	}
 	
-	private Set<Property> unionProperties(Set<Property> properties1,
-			Set<Property> properties2) {
-		Set<Property> propertyUnion = new HashSet<Property>();
+	private List<Property> unionProperties(List<Property> properties1,
+			List<Property> properties2) {
+		List<Property> propertyUnion = new ArrayList<Property>();
 		for (Property property1 : properties1) {
 			for (Property property2 : properties2) {
 				/*
@@ -171,7 +173,7 @@ public class JoinRelation implements IRelation {
 	}
 
 	@Override
-	public Set<Property> getProperties() {
+	public List<Property> getProperties() {
 		return evaluatedRelation.getProperties();
 	}
 

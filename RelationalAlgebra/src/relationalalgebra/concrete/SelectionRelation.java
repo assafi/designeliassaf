@@ -6,9 +6,11 @@ package relationalalgebra.concrete;
 
 import java.util.ArrayDeque;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.SortedSet;
 
 import conditions.ICondition;
 import conditions.Property;
@@ -68,7 +70,7 @@ public class SelectionRelation implements IRelation{
 	}
 
 	@Override
-	public Set<Property> getProperties() {
+	public List<Property> getProperties() {
 		return evaluatedRelation.getProperties();
 	}
 

@@ -5,8 +5,8 @@
 package relationalalgebra;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import conditions.Property;
 
@@ -38,5 +38,5 @@ public interface IRelation {
 	
 	public Iterator<Map<Property, Object>> iterator();
 	
-	public Set<Property> getProperties();
+	public List<Property> getProperties();
 }
