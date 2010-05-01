@@ -42,4 +42,9 @@ public class Property {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode(){
+		return name.hashCode() + type.hashCode();
+	}
 }

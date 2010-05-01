@@ -55,8 +55,10 @@ public class CartesianRelation implements IRelation {
 			for (Property propertyRel2 : properties2) {
 				
 				if(propertyRel2.getName().equals(propertyRel1.getName())){
-					cartesianProperties.add(new Property(rel1.getName() + "." + propertyRel1.getName(), propertyRel1.getClass()));
-					cartesianProperties.add(new Property(rel2.getName() + "." + propertyRel2.getName(), propertyRel2.getClass()));
+					String cartPropName1 = createCartesianPropName(rel1, propertyRel1.getName(), rel2, "1");
+					String cartPropName2 = createCartesianPropName(rel2, propertyRel2.getName(), rel1, "2");
+					cartesianProperties.add(new Property(cartPropName1, propertyRel1.getType()));
+					cartesianProperties.add(new Property(cartPropName2, propertyRel2.getType()));
 					equalNameProperties.add(propertyRel1);
 					equalNameProperties.add(propertyRel2);		
 				}
@@ -126,7 +128,8 @@ public class CartesianRelation implements IRelation {
 				Map<Property, Object> entryRel2 = iterRel2.next();
 				for (Property property : entryRel2.keySet()) {
 					if(equalNameProperties.contains(property)){
-						cartesianEntry.put(new Property(rel2.getName() + "." + property.getName(), property.getClass()), 
+						String cartPropName = createCartesianPropName(rel2, property.getName(), rel1, "2");
+						cartesianEntry.put(new Property(cartPropName, property.getType()), 
 										   entryRel2.get(property));
 					}
 				}
@@ -137,12 +140,21 @@ public class CartesianRelation implements IRelation {
 		}
 		
 	}
+	
+	private String createCartesianPropName(IRelation rel, String propName, IRelation secondRel, String distinctStr){
+		String cartPropName = rel.getName() + "." + propName;
+		if (rel.getName().equals(secondRel.getName())){
+			cartPropName += distinctStr;
+		}
+		return cartPropName;
+	}
 
 	private Map<Property, Object> extractEntry(Map<Property, Object> entryRel1) {
 		Map<Property, Object> newEntry = new HashMap<Property, Object>(); 
 		for (Property property : entryRel1.keySet()) {
 			if(equalNameProperties.contains(property)){
-				newEntry.put(new Property(rel1.getName() + "." + property.getName(), property.getClass()), 
+				String cartPropName = createCartesianPropName(rel1, property.getName(), rel2, "1");
+				newEntry.put(new Property(cartPropName, property.getType()), 
 								   entryRel1.get(property));
 			}
 		}

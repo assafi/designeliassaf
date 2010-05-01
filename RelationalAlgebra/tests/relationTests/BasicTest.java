@@ -121,7 +121,7 @@ public class BasicTest {
 	
 	@Test
 	public void testCartesianRelation() throws IOException {
-		IRelation projRel = new CartesianRelation("CartRel", bRel1, bRel2);
+		IRelation projRel = new CartesianRelation("CartRel", bRel1, bRel1);
 		
 		projRel.display();
 		
