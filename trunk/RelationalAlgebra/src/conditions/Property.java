@@ -9,7 +9,7 @@ package conditions;
  * @author Assaf Israel & Eli Nazarov
  *
  */
-public class Property {
+public class Property{
 
 	private final String name;
 	private final Class<?> type;

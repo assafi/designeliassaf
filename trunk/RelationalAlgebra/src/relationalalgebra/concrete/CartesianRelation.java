@@ -5,15 +5,17 @@
 package relationalalgebra.concrete;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import conditions.Property;
 import relationalalgebra.IRelation;
+import conditions.Property;
 
 /**
  * @author Assaf Israel & Eli Nazarov
@@ -41,24 +43,12 @@ public class CartesianRelation implements IRelation {
 		this.evaluatedRelation = new BasicRelation(name, getCartesianProperties(rel1,rel2));
 	}
 	
-	private Set<Property> getCartesianProperties(IRelation rel1, IRelation rel2) {
+	private List<Property> getCartesianProperties(IRelation rel1, IRelation rel2) {
 		
-		Set<Property> properties1 = rel1.getProperties();
-		Set<Property> properties2 = rel2.getProperties();
+		List<Property> properties1 = rel1.getProperties();
+		List<Property> properties2 = rel2.getProperties();
 		
-		System.out.println(rel1.getName());
-		for (Property property : properties1) {
-			System.out.print(property.getName() + " ");
-		}
-		System.out.println(" ");
-		
-		System.out.println(rel2.getName());
-		for (Property property : properties2) {
-			System.out.print(property.getName() + " ");
-		}
-		System.out.println(" ");
-		
-		Set<Property> cartesianProperties = new HashSet<Property>();
+		List<Property> cartesianProperties = new ArrayList<Property>();
 		
 		for (Property propertyRel1 : properties1) {
 			/* 
@@ -92,11 +82,6 @@ public class CartesianRelation implements IRelation {
 			}
 		}
 		
-		System.out.println("cartesianRel");
-		for (Property property : cartesianProperties) {
-			System.out.print(property.getName() + " ");
-		}
-		System.out.println(" ");
 		return cartesianProperties;
 		
 	}
@@ -187,7 +172,7 @@ public class CartesianRelation implements IRelation {
 	}
 
 	@Override
-	public Set<Property> getProperties() {
+	public List<Property> getProperties() {
 		return evaluatedRelation.getProperties();
 	}
 
