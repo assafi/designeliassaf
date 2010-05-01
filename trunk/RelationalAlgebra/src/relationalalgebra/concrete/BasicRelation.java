@@ -28,7 +28,7 @@ public class BasicRelation implements IRelation{
 	private List<Map <Property, Object>> table = new ArrayList<Map<Property,Object>>();
 	private final Set<Property> properties;
 	private final String name;
-	private static JFrame frame = new JFrame();
+	private JFrame frame = new JFrame();
 	private static Object lock = new Object();
 
 
