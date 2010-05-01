@@ -7,6 +7,9 @@ package conditions;
 import java.util.Map;
 
 /**
+ * A condition can be defined in advance, and only checked 
+ * later against a specific set of values. (corresponding to a 
+ * set of pre-defined properties). 
  * @author Assaf Israel & Eli Nazarov 
  *
  */
