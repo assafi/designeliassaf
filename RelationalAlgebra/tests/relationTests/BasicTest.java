@@ -140,7 +140,6 @@ public class BasicTest {
 		
 		bRel1.display();
 		
-//		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 	
 		stdin.read();
@@ -160,7 +159,6 @@ public class BasicTest {
 		
 		projRel.display();
 		
-//		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		stdin.read();
@@ -173,7 +171,6 @@ public class BasicTest {
 		
 		cartRel.display();
 		
-//		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		stdin.read();
@@ -186,7 +183,6 @@ public class BasicTest {
 		
 		cartRel.display();
 		
-//		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		stdin.read();
@@ -200,7 +196,6 @@ public class BasicTest {
 		
 		selectRel.display();
 		
-//		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		stdin.read();
@@ -214,7 +209,6 @@ public class BasicTest {
 		
 		joinRel.display();
 		
-//		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		stdin.read();
@@ -229,7 +223,6 @@ public class BasicTest {
 		
 		selectRel.display();
 		
-//		System.out.println("Press Any Key to display next..!");
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		stdin.read();
@@ -242,9 +235,19 @@ public class BasicTest {
 		IRelation join1 = new JoinRelation("J1", bRel1, bRel3);
 		IRelation cart2 = new CartesianRelation("C2",join1, bRel2);
 		
-		cart2.display();
+		Property propInerHeight = new Property("J1.height", Integer.class);
+		ICondition cond = new GreaterThenCondition(propInerHeight, 170);
+		IRelation select2 = new SelectionRelation("S2", cart2, cond);
 		
-//		System.out.println("Press Any Key to display next..!");
+		Set<String> labels = new HashSet<String>();
+		labels.add("Rel2.height");
+		labels.add("J1.height");
+		labels.add("fatherName");
+		
+		IRelation proj2 = new ProjectionRelation("P2", select2, labels); 
+		
+		proj2.display();
+		
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		stdin.read();
