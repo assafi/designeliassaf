@@ -35,8 +35,27 @@ public class BasicRelation implements IRelation{
 	
 	public BasicRelation(String name, Set<Property> properties) {
 		
+		if(!checkProperties(properties)){
+			throw new IllegalArgumentException("Different properties with same name are not allowd");
+		}
+		
 		this.properties = properties;
 		this.name = name;
+	}
+
+	private boolean checkProperties(Set<Property> properties) {
+		Property[] propArr = new Property[properties.size()];
+		propArr = properties.toArray(propArr);
+		for(int i = 0; i < propArr.length-1; i++){
+			for(int j = i+1; j < propArr.length; j++){
+				if(propArr[i].getName().equals(propArr[j].getName())){
+					return false;
+				}
+			}
+		}
+		
+		return true;
+		
 	}
 
 	@Override
