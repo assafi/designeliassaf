@@ -32,11 +32,27 @@ public interface IRelation {
 	 */
 	public boolean add(Map<Property, Object> entry);
 	
+	/**
+	 * Lazy evaluation of the relation.
+	 * @return The relation after evaluation of a composite relations
+	 */
 	public IRelation evaluate();
 	
+	/**
+	 * Display the relation.
+	 */
 	public void display();
 	
+	/**
+	 * Retrieve an iterator over the relation
+	 * @return Iterator over the relation rows.<br>
+	 * 		   The iterator retrieve single entry in the relation at a time
+	 */
 	public Iterator<Map<Property, Object>> iterator();
 	
+	/**
+	 * Retrieves the properties of the relation.
+	 * @return Ordered list of relation properties
+	 */
 	public List<Property> getProperties();
 }
