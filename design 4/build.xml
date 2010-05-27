@@ -1,0 +1,27 @@
+<project default="compile" basedir=".">
+   <target name="compile">
+		<javac classpath="lib/junit.jar" srcdir="src" destdir="bin"></javac>
+	</target>
+
+	<target name="selectGenre" depends="compile">
+		<java classname="il.cs.technion.c236700.hw4.SelectGenre" classpath="bin" fork="true">
+			<arg file="xml/books.xml"></arg>
+			<arg value="fantasy"/>
+		</java>
+	</target>
+
+	<target name="bestSellers" depends="compile">
+		<java classname="il.cs.technion.c236700.hw4.BestSellers" classpath="bin" fork="true">
+			<arg file="xml/books.xml"></arg>
+			<arg file="xml/best_sellers.xml"></arg>
+		</java>
+	</target>
+
+	<target name="antijoin" depends="compile">
+		<java classname="il.cs.technion.c236700.hw4.AntiJoin" classpath="bin" fork="true">
+			<arg file="xml/books.xml"></arg>
+			<arg file="xml/best_sellers.xml"></arg>
+		</java>
+	</target>
+	
+</project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="book.xsd">
+	<book name="The name Of The Rose">
+		<genre>historical</genre>
+		<price>15</price>
+	</book>
+	<book name="The Lord of the Rings">
+		<genre>fantasy</genre>
+		<price>67</price>
+	</book>
+	<book name="Intro to Algorithms">
+		<genre>fantasy</genre>
+		<price>100</price>
+	</book>
+	<book name="The Name of the Rose">
+		<genre>fantasy</genre>
+		<price>100</price>
+	</book>
+</books>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+	<element name="books">
+		<complexType>
+			<sequence>
+				<element name="book" minOccurs="0" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element type="string" name="genre"/>
+							<element type="int" name="price"/>
+						</sequence>
+						<attribute name="name" type="string"/>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+		<unique name="uniqueName">
+			<selector xpath="book"/>
+			<field xpath="@name"/>
+		</unique>
+	</element>
+</schema>
