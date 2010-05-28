@@ -1,13 +1,8 @@
 package il.cs.technion.c236700.hw4;
 
-import il.cs.technion.c236700.hw4.parsers.BSParser;
-import il.cs.technion.c236700.hw4.parsers.BookParser;
-
 import java.util.Iterator;
 
 import QueryImplementation.Query;
-import RelationImplementation.Cell;
-import RelationImplementation.Column;
 import RelationImplementation.Relation;
 import RelationImplementation.Row;
 
@@ -26,62 +21,9 @@ public class AntiJoin {
 		 * Prepare the two relations
 		 */
 		
-		Column nameC = new Column("name",String.class);
-		Column genreC = new Column("genre",String.class);
-		Column priceC = new Column("price",Integer.class);
-		Column soldCopiesC = new Column("soldCopies", Integer.class);
+		Relation bookRel = Utils.loadBooks(args[0]);
 		
-		/*
-		 * Preparing the Book relation
-		 */
-		
-		Relation bookRel = new Relation
-		(
-				nameC,
-				genreC,
-				priceC
-		);
-		
-		try {
-			for (Book b : new BookParser().parse()) {
-				bookRel.addRow(new Row
-					(
-						new Cell(nameC, b.name),
-						new Cell(genreC, b.genre),
-						new Cell(priceC, b.price)
-					)
-				);
-				
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		
-		/*
-		 * Preparing the Best-Seller relation
-		 */
-		
-		Relation bestSellersRel = new Relation
-		(
-				nameC,
-				soldCopiesC
-		);
-		
-		try {
-			for(BestSeller s : new BSParser().parse()) {
-				bestSellersRel.addRow(new Row
-					(
-						new Cell(nameC, s.name),
-						new Cell(soldCopiesC, s.copies)
-					)
-				);
-				
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
+		Relation bestSellersRel = Utils.loadBestSellers(args[1]);
 		
 		/*
 		 * The correct query to answer this question is "SELECT NAME FROM Book Join BestSellers"
@@ -91,9 +33,9 @@ public class AntiJoin {
 		while(iter.hasNext()) {
 			Row r = iter.next();
 			System.out.println(new Book(
-					(String)r.getValue(nameC),
-					(String)r.getValue(genreC),
-					(Integer)r.getValue(priceC)
+					(String)r.getValue(Utils.NAME),
+					(String)r.getValue(Utils.GENRE),
+					(Integer)r.getValue(Utils.PRICE)
 				));
 		}
 	}
