@@ -6,8 +6,8 @@ import org.w3c.dom.Element;
 
 public class BookParser extends XmlParser<Book> {
 	
-	public BookParser() {
-		super("xml/books.xml", "xml/books.xsd", "book");
+	public BookParser(String xmlPath) {
+		super(xmlPath,"xml/books.xsd", "book");
 	}
 
 

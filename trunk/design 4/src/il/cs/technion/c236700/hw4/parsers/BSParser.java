@@ -7,8 +7,8 @@ import il.cs.technion.c236700.hw4.BestSeller;
 
 public class BSParser extends XmlParser<BestSeller>{
 
-	public BSParser() {
-		super("xml/best_sellers.xml", "xml/best_sellers.xsd", "book");
+	public BSParser(String xmlPath) {
+		super(xmlPath,"xml/best_sellers.xsd", "book");
 	}
 
 	@Override

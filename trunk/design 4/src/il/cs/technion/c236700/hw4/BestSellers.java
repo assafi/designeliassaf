@@ -3,12 +3,8 @@ package il.cs.technion.c236700.hw4;
 import java.util.Iterator;
 
 import QueryImplementation.Query;
-import RelationImplementation.Cell;
-import RelationImplementation.Column;
 import RelationImplementation.Relation;
 import RelationImplementation.Row;
-import il.cs.technion.c236700.hw4.parsers.BSParser;
-import il.cs.technion.c236700.hw4.parsers.BookParser;
 
 public class BestSellers {
 	public static void main(String[] args) {
@@ -21,70 +17,18 @@ public class BestSellers {
 		 * Prepare the two relations
 		 */
 		
-		Column nameC = new Column("name",String.class);
-		Column genreC = new Column("genre",String.class);
-		Column priceC = new Column("price",Integer.class);
-		Column soldCopiesC = new Column("soldCopies", Integer.class);
+		Relation bookRel = Utils.loadBooks(args[0]);
+		
+		Relation bestSellersRel = Utils.loadBestSellers(args[1]);
 		
 		/*
-		 * Preparing the Book relation
+		 * The correct query to answer this question is 
+		 * "SELECT NAME FROM (Book NaturalJoin BestSellers)"
 		 */
-		
-		Relation bookRel = new Relation
-		(
-				nameC,
-				genreC,
-				priceC
-		);
-		
-		try {
-			for (Book b : new BookParser().parse()) {
-				bookRel.addRow(new Row
-					(
-						new Cell(nameC, b.name),
-						new Cell(genreC, b.genre),
-						new Cell(priceC, b.price)
-					)
-				);
-				
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		
-		/*
-		 * Preparing the Best-Seller relation
-		 */
-		
-		Relation bestSellersRel = new Relation
-		(
-				nameC,
-				soldCopiesC
-		);
-		
-		try {
-			for(BestSeller s : new BSParser().parse()) {
-				bestSellersRel.addRow(new Row
-					(
-						new Cell(nameC, s.name),
-						new Cell(soldCopiesC, s.copies)
-					)
-				);
-				
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		
-		/*
-		 * The correct query to answer this question is "SELECT NAME FROM Book Join BestSellers"
-		 */
-		Query query = Query.Create(bookRel).NaturalJoin(bestSellersRel).Select(nameC);
+		Query query = Query.Create(bookRel).NaturalJoin(bestSellersRel).Select(Utils.NAME);
 		Iterator<Row> iter = query.iterator();
 		while(iter.hasNext()) {
-			System.out.println(iter.next().getValue(nameC));
+			System.out.println(iter.next().getValue(Utils.NAME));
 		}
 	}
 }
